@@ -8,6 +8,8 @@ var typingMembers = new Set();
 
 var activeChannelPage;
 
+var SERVER_URL = "http://54.67.37.32:5000"
+
 var userContext = { identity: null, endpoint: null };
 let AUTHOR = "ownz.andy@gmail.com";
 
@@ -557,6 +559,24 @@ $(".sidebar-tab").click(function() {
 });
 
 function updateChannels() {
+  var url = 'https://stackoverflow.com'
+  // $.getJSON(url, function() {
+  //   console.log('hii')
+  // });
+  // $.ajax({
+  //    url: url,
+  //    dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
+  //    success:function(json){
+  //        // do stuff with json (in this case an array)
+  //        console.log(json)
+  //    },
+  //    error:function(e){
+  //        alert("Error");
+  //    }      
+  // });
+  httpGetAsync(url, function(response) {
+    console.log(response)
+  })
   client.getSubscribedChannels()
     .then(page => {
         subscribedChannels = page.items.sort(function(a, b) {
@@ -569,7 +589,7 @@ function updateChannels() {
           switch (channel.status) {
             case 'joined':
               if ($("#add-tab").hasClass("active")) {
-                addFakeChannel(index);
+                // addFakeChannel(index);
               } else {
                 addJoinedChannel(channel);
               }
@@ -646,7 +666,7 @@ function setActiveChannel(channel) {
       $('#channel-messages').scrollTop($('#channel-messages ul').height());
       $('#channel-messages li.last-read').removeClass('last-read');
     });
-    var url = "http://54.67.37.32:5000/send?message="
+    var url = SERVER_URL + "/send?message="
     url += body
     console.log(url)
     httpGetAsync(url, function(response) {
