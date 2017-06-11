@@ -519,10 +519,19 @@ function addFakeChannel(user) {
   var $title = $('<span class="joined"/>')
     .text(user.name);
 
+  localStorage.set(user.name, user.number)
+
   var $lastMessage = $('<span class="last-message"/>');
   $lastMessage.text("Speaks: " + user.languages.join(", "));
   $title.appendTo($con);
   $lastMessage.appendTo($con);
+
+  $con.bind('click', function() {
+      var url = SERVER_URL + '/create_channel?number=%2B' + user.number
+      $.getJSON(url, function(response) {
+        updateChannels()
+      });
+  });
 
   $con.appendTo($el);
 
