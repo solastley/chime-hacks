@@ -391,9 +391,11 @@ function updateMessages() {
   $('#channel-messages ul').empty();
   if (!$("#add-tab").hasClass("active")) {
     $("#new-chat").hide();
-    activeChannel.getMessages(30).then(function(page) {
-      page.items.forEach(addMessage);
-    });
+    if (activeChannel != null) {
+      activeChannel.getMessages(30).then(function(page) {
+        page.items.forEach(addMessage);
+      });
+    }
   } else {
     $("#new-chat").show();
   }
@@ -506,22 +508,7 @@ function addMessage(message) {
 //
 // }
 
-function addFakeChannel(index) {
-  const fakePeople = [
-    {
-      name: 'Paul Hayne',
-      languages: ['Arabic', 'English'],
-    },
-    {
-      name: 'Solomon Astley',
-      languages: ['English', 'Spanish'],
-    },
-    {
-      name: 'Mike Rowe',
-      languages: 'The language of the people',
-    },
-  ];
-
+function addFakeChannel(user) {
   var $el = $('<li/>');
 
   var $image = $('<img src="/images/girl.jpg" class="message-image"/>');
@@ -530,10 +517,10 @@ function addFakeChannel(index) {
   var $con = $('<div class="message-info" style="width: 200px; margin-left: 10px"></div>');
 
   var $title = $('<span class="joined"/>')
-    .text(fakePeople[index % fakePeople.length].name);
+    .text(user.name);
 
   var $lastMessage = $('<span class="last-message"/>');
-  $lastMessage.text("Speaks: " + fakePeople[index % fakePeople.length].languages.join(", "));
+  $lastMessage.text("Speaks: " + user.languages.join(", "));
   $title.appendTo($con);
   $lastMessage.appendTo($con);
 
@@ -559,24 +546,14 @@ $(".sidebar-tab").click(function() {
 });
 
 function updateChannels() {
-  var url = 'https://stackoverflow.com'
-  // $.getJSON(url, function() {
-  //   console.log('hii')
-  // });
-  // $.ajax({
-  //    url: url,
-  //    dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
-  //    success:function(json){
-  //        // do stuff with json (in this case an array)
-  //        console.log(json)
-  //    },
-  //    error:function(e){
-  //        alert("Error");
-  //    }      
-  // });
-  httpGetAsync(url, function(response) {
-    console.log(response)
-  })
+  if ($("#add-tab").hasClass("active")) {
+      var url = SERVER_URL + '/suggested_users'
+      $.getJSON(url, function(response) {
+        for(var i = 0; i < response.length; i++) {
+          addFakeChannel(response[i])
+        }
+      });
+  } 
   client.getSubscribedChannels()
     .then(page => {
         subscribedChannels = page.items.sort(function(a, b) {
@@ -588,11 +565,7 @@ function updateChannels() {
         subscribedChannels.forEach(function(channel, index) {
           switch (channel.status) {
             case 'joined':
-              if ($("#add-tab").hasClass("active")) {
-                // addFakeChannel(index);
-              } else {
-                addJoinedChannel(channel);
-              }
+              addJoinedChannel(channel)
               break;
             case 'invited':
               addInvitedChannel(channel);
