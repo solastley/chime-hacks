@@ -519,13 +519,6 @@ body {
   position: relative;
 }
 
-#channel-messages li > img {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  margin-right: 5px;
-}
-
 #channel-messages p.members-read {
   position: absolute;
   bottom: 2px;
@@ -615,9 +608,30 @@ body {
 
 .avatar {
   transform: translateX(15px);
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin-right: 5px;
 }
 .avatar-right {
   transform: translateX(935px);
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin-right: 5px;
+}
+
+.avatar-image {
+  transform: translateY(-300px);
+  transform: translateX(-188px);
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.image {
+  max-width: 200px;
+  transform: translateX(65px);
 }
 
 #channel-messages textarea.edit-body {
@@ -879,6 +893,10 @@ body {
 
 #profile-name {
   text-align: center;
+}
+
+#channel-title-description {
+  transform: translateX(750px);
 }
 
 #profile-languages {

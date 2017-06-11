@@ -415,35 +415,42 @@ function createMessage(message, $el) {
 
   if(message.state.author === AUTHOR) {
 
-    var $author = $('<p class="author"/>')
+    if (message.state.body.includes('http')) {
+      var $img = $('<img class="image"/>')
+      .attr('src', message.state.body)
       .appendTo($el);
-        var $body = $('<p class="channel-message-body-right"/>')
-    .text(message.body)
-    .appendTo($el);
+    } else {
+      var $body = $('<p class="channel-message-body-right"/>')
+      .text(message.body)
+      .appendTo($el);
+    }
 
-        var $img = $('<img class="avatar-right"/>')
+    var $img = $('<img class="avatar-right"/>')
     .attr('src', 'http://gravatar.com/avatar/' + MD5(message.author) + '?s=30&d=mm&r=g')
     .appendTo($el);
   }
 
-  var time = message.timestamp;
-  var minutes = time.getMinutes();
-  var ampm = Math.floor(time.getHours()/12) ? 'PM' : 'AM';
-
-  if (minutes < 10) { minutes = '0' + minutes; }
-
 if(message.state.author !== AUTHOR) {
-    var $body = $('<p class="channel-message-body"/>')
-    .text(message.body)
-    .appendTo($el);
-    var $img = $('<img class="avatar"/>')
-    .attr('src', 'http://gravatar.com/avatar/' + MD5(message.author) + '?s=30&d=mm&r=g')
-    .appendTo($el);
 
-  var $author = $('<p class="author"/>')
-    .appendTo($el);
+    if (message.state.body.includes('http')) {
+        var $img = $('<img class="image"/>')
+      .attr('src', message.state.body)
+      .appendTo($el);
+
+      var $img = $('<img class="avatar-image"/>')
+      .attr('src', 'http://gravatar.com/avatar/' + MD5(message.author) + '?s=30&d=mm&r=g')
+      .appendTo($el);''
+    } else {
+
+      var $body = $('<p class="channel-message-body"/>')
+      .text(message.body)
+      .appendTo($el);
+
+      var $img = $('<img class="avatar"/>')
+      .attr('src', 'http://gravatar.com/avatar/' + MD5(message.author) + '?s=30&d=mm&r=g')
+      .appendTo($el);
+      }
 }
-
 
 }
 
@@ -519,10 +526,19 @@ function addFakeChannel(user) {
   var $title = $('<span class="joined"/>')
     .text(user.name);
 
+  localStorage.setItem(user.name, user.number)
+
   var $lastMessage = $('<span class="last-message"/>');
   $lastMessage.text("Speaks: " + user.languages.join(", "));
   $title.appendTo($con);
   $lastMessage.appendTo($con);
+
+  $con.bind('click', function() {
+      var url = SERVER_URL + '/create_channel?number=%2B' + user.number.slice(1, user.number.length)
+      $.getJSON(url, function(response) {
+        updateChannels()
+      });
+  });
 
   $con.appendTo($el);
 
@@ -635,6 +651,7 @@ function setActiveChannel(channel) {
 
   $("#current-helping").html("Helping: <b>" + activeChannel.friendlyName + "</b>");
 
+
   $('#channel-title').text(channel.friendlyName);
   $('#channel-messages ul').empty();
   $('#channel-members ul').empty();
@@ -667,6 +684,9 @@ function setActiveChannel(channel) {
     });
     var url = SERVER_URL + "/send?message="
     url += body
+    url += '&number=%2B'
+    var fullNumber = localStorage.getItem(channel.friendlyName)
+    url += fullNumber.slice(1, fullNumber.length)
     console.log(url)
     httpGetAsync(url, function(response) {
       console.log(response)
