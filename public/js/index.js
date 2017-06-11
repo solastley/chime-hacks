@@ -217,7 +217,7 @@ function logIn(identity, displayName) {
       })
 
       client.user.on('updated', function() {
-        $('#profile label').text("LAILA.");
+        $('#header-left-div label').text("LAILA.");
       });
 
       var connectionInfo = $('#profile #presence');
@@ -534,12 +534,17 @@ $(".sidebar-tab").click(function() {
     $("#add-tab").addClass("active");
     $("#chat-tab").removeClass("active");
     $("#suggested-connections-header").show();
+    $("#current-helping").html("");
+    $("#message-checklist-container").hide();
+    $('#message-body-input').attr("placeholder", 'Send a message');
     updateChannels();
     updateMessages();
   } else {
     $("#chat-tab").addClass("active");
     $("#add-tab").removeClass("active");
     $("#suggested-connections-header").hide();
+    $("#message-checklist-container").show();
+    $('#message-body-input').attr("placeholder", 'Send a message to ' + activeChannel.friendlyName);
     updateChannels();
     updateMessages();
   }
@@ -626,7 +631,9 @@ function setActiveChannel(channel) {
 
   activeChannel = channel;
 
-  $('#message-body-input').attr("placeholder", 'Send a message to ' + channel.friendlyName)
+  $('#message-body-input').attr("placeholder", 'Send a message to ' + channel.friendlyName);
+
+  $("#current-helping").html("Helping: <b>" + activeChannel.friendlyName + "</b>");
 
   $('#channel-title').text(channel.friendlyName);
   $('#channel-messages ul').empty();
@@ -639,18 +646,18 @@ function setActiveChannel(channel) {
   $('#send-message').on('click', function() {
     var body = $('#message-body-input').val();
     if (!$("#checklist-class").hasClass("checked")) {
-      if (body.indexOf("class") !== -1 || body.indexOf("learn") !== -1) {
+      if (body.indexOf("class") !== -1) {
         $("#checklist-class").addClass("checked");
       }
     }
     if (!$("#checklist-safe").hasClass("checked")) {
-      if (body.indexOf("safe") !== -1) {
-        $("#checklist-safe").addClass("checked");
+      if (body.indexOf("learn") !== -1) {
+        $("#checklist-learn").addClass("checked");
       }
     }
     if (!$("#checklist-crisis").hasClass("checked")) {
-      if (body.indexOf("crisis") !== -1 || body.indexOf("emergency") !== -1) {
-        $("#checklist-crisis").addClass("checked");
+      if (body.indexOf("advice") !== -1 || body.indexOf("help") !== -1) {
+        $("#checklist-advice").addClass("checked");
       }
     }
     channel.sendMessage(body).then(function() {

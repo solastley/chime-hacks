@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Amora</title>
+  <title>Laila</title>
   <meta name="google-signin-scope" content="profile">
   <meta name="google-signin-client_id" content="1003561219122-8e45ibd1i42tu1gnqvs15e49f8g7fq0v.apps.googleusercontent.com">
 
@@ -44,9 +44,12 @@
     <button id="create-new-channel" class="red-button">Create Channel</button>
   </div>
   <div id="overlay"></div>
+  <span id="current-helping"></span>
   <div id="sidebar">
     <div id="profile">
-      <label></label>
+      <div id="header-left-div">
+        <label></label>
+      </div>
       <div id="presence"></div>
     </div>
     <div id="channels">
@@ -119,19 +122,19 @@
             <div class="radio-outer">
               <div class="radio-inner"></div>
             </div>
-            <span class="checklist-text">What did she learn in class?</span>
+            <span class="checklist-text">Did she go to class today?</span>
           </div>
-          <div id="checklist-safe" class="checklist-item">
+          <div id="checklist-learn" class="checklist-item">
             <div class="radio-outer">
               <div class="radio-inner"></div>
             </div>
-            <span class="checklist-text">Did she get back safe?</span>
+            <span class="checklist-text">What did she learn?</span>
           </div>
-          <div id="checklist-crisis" class="checklist-item">
+          <div id="checklist-advice" class="checklist-item">
             <div class="radio-outer">
               <div class="radio-inner"></div>
             </div>
-            <span class="checklist-text">Is she aware of the crisis?</span>
+            <span class="checklist-text">Give her some advice</span>
           </div>
         </div>
         <div id="channel-join-panel">
