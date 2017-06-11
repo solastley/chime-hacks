@@ -17,6 +17,7 @@ body {
   overflow: hidden;
   text-align: center;
   display: none;
+  font-family: Avenir;
 }
 
 .popup h3 {
@@ -369,16 +370,13 @@ body {
 }
 
 .red-button {
-  border-radius: 5px;
-  border: 1px solid black;
-  color: white;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
-  background-color: #E30000;
-}
-
-.red-button:hover {
-  background-color: #B30000;
+  color: #EC407A;
+  font-size: 20px;
+  display: inline-block;
+  font-weight: bold;
+  background: white;
+  border: none;
+  transform: translateY(-2px);
 }
 
 .white-button {
@@ -433,8 +431,9 @@ body {
   margin-bottom: 70px;
   position: relative;
   width: 100%;
-  height: calc(100% - 70px);
+  height: calc(100% - 75px);
   overflow-y: auto;
+  background: #F5F5F5;
 }
 
 
@@ -450,9 +449,9 @@ body {
 }
 
 #channel-messages li > img {
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
   margin-right: 5px;
 }
 
@@ -485,10 +484,6 @@ body {
   display: none;
 }
 
-#channel-messages li:nth-child(even) {
-  background: #F0F0FA;
-}
-
 #channel-messages li.last-read {
   border-bottom: 1px solid red;
 }
@@ -509,10 +504,6 @@ body {
   display: none;
 }
 
-#channel-messages li:hover {
-  background: #EBEBF0;
-}
-
 #channel-messages p.author {
   display: inline-block;
   font-weight: bold;
@@ -527,12 +518,35 @@ body {
   margin-left: 4px;
 }
 
-#channel-messages p.body {
+.channel-message-body {
+  max-width: 500px;
   margin: 0 0 0 35px;
-  padding: 50px;
-  width: calc(100% - 90px);
+  word-break: break-all;
   background: white;
   border-radius: 10px;
+  padding: 25px;
+  transform: translateX(15px);
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.channel-message-body-right {
+  max-width: 500px;
+  margin: 0 0 0 35px;
+  word-break: break-all;
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+  transform: translateX(400px);
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.avatar {
+  transform: translateX(15px);
+}
+.avatar-right {
+  transform: translateX(950px);
 }
 
 #channel-messages textarea.edit-body {
@@ -562,9 +576,10 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   border-top: 1px solid #AAA;
-  background: #F5F5F8;
+  background: white;
 }
 
 #typing-indicator {
@@ -580,20 +595,55 @@ body {
 
 #channel-message-send input {
   display: inline-block;
-  width: calc(100% - 90px);
-  margin-left: 10px;
+  width: calc(100% - 150px);
+  margin-left: 50px;
   height: 30px;
   right: 60px;
   padding: 0 10px;
   border-radius: 5px;
-  border: 1px solid black;
+  transform: translateY(-5px);
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+  border: none;
 }
+
+#channel-message-send input:focus {
+  outline: none;
+} 
+
+::-webkit-input-placeholder { /* Chrome */
+  color: black;
+  letter-spacing: 1px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #616161;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: black;
+  font-weight: bold;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: black;
+  font-weight: bold;
+  opacity: 1;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+  color: black;
+  font-weight: bold;
+  opacity: 1;
+}
+
 
 #channel-message-send button {
   margin: 0 10px;
   height: 30px;
   padding: 5px 10px;
   display: inline-block;
+}
+
+#channel-message-send button:focus {
+  outline: none;
 }
 
 #channel-join-panel {
