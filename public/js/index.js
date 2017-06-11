@@ -679,6 +679,11 @@ function setActiveChannel(channel) {
 
   $("#current-helping").html("Helping: <b>" + activeChannel.friendlyName + "</b>");
 
+  if (activeChannel.friendlyName == "Amina Issa") {
+    $(".story-content").attr("src", "/images/story2/story.jpg");
+  } else {
+    $(".story-content").attr("src", "/images/story1/story.jpg");
+  }
 
   $('#channel-title').text(channel.friendlyName);
   $('#channel-messages ul').empty();
@@ -691,17 +696,17 @@ function setActiveChannel(channel) {
   $('#send-message').on('click', function() {
     var body = $('#message-body-input').val();
     if (!$("#checklist-class").hasClass("checked")) {
-      if (body.indexOf("class") !== -1) {
+      if (body.toLowerCase().indexOf("class") !== -1) {
         $("#checklist-class").addClass("checked");
       }
     }
     if (!$("#checklist-safe").hasClass("checked")) {
-      if (body.indexOf("learn") !== -1) {
+      if (body.toLowerCase().indexOf("learn") !== -1) {
         $("#checklist-learn").addClass("checked");
       }
     }
     if (!$("#checklist-crisis").hasClass("checked")) {
-      if (body.indexOf("advice") !== -1 || body.indexOf("help") !== -1) {
+      if (body.toLowerCase().indexOf("advice") !== -1 || body.toLowerCase().indexOf("help") !== -1) {
         $("#checklist-advice").addClass("checked");
       }
     }
@@ -764,7 +769,7 @@ function setActiveChannel(channel) {
     }
     if (!$("#add-tab").hasClass("active")) {
 
-    } 
+    }
 
     // channel.on('memberJoined', updateMembers);
     // channel.on('memberLeft', updateMembers);
