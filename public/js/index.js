@@ -9,7 +9,7 @@ var typingMembers = new Set();
 var activeChannelPage;
 
 var userContext = { identity: null, endpoint: null };
-let AUTHOR = "mckim0928@gmail.com";
+let AUTHOR = "ownz.andy@gmail.com";
 
 $(document).ready(function() {
   $('#login-name').focus();
@@ -427,22 +427,6 @@ function createMessage(message, $el) {
 
   if (minutes < 10) { minutes = '0' + minutes; }
 
-  var $timestamp = $('<span class="timestamp"/>')
-    .text('(' + (time.getHours()%12) + ':' + minutes + ' ' + ampm + ')')
-    .appendTo($author);
-
-  if (message.lastUpdatedBy) {
-    time = message.dateUpdated;
-    minutes = time.getMinutes();
-    ampm = Math.floor(time.getHours()/12) ? 'PM' : 'AM';
-
-    if (minutes < 10) { minutes = '0' + minutes; }
-    $('<span class="timestamp"/>')
-      .text('(Edited by ' + message.lastUpdatedBy + ' at ' +
-        (time.getHours()%12) + ':' + minutes + ' ' + ampm + ')')
-      .appendTo($author)
-  }
-
   var $body = $('<p class="body"/>')
     .text(message.body)
     .appendTo($el);
@@ -474,10 +458,6 @@ if(message.state.author !== AUTHOR) {
     .on('click', function(e) {
       message.updateBody($editBody.val());
     }).appendTo($el);
-
-  var $lastRead = $('<p class="last-read"/>')
-    .text('New messages')
-    .appendTo($el);
 
   var $membersRead = $('<p class="members-read"/>')
     .appendTo($el);
@@ -661,7 +641,7 @@ function setActiveChannel(channel) {
     if (lastIndex && lastIndex !== newestMessageIndex) {
       var $li = $('li[data-index='+ lastIndex + ']');
       var top = $li.position() && $li.position().top;
-      $li.addClass('last-read');
+      // $li.addClass('last-read');
       $('#channel-messages').scrollTop(top + $('#channel-messages').scrollTop());
     }
 

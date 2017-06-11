@@ -266,7 +266,7 @@ body {
 #sidebar-footer {
   position: fixed;
   bottom: 0;
-  width: 500px;
+  width: 300px;
   height: 80px;
   padding: 20px 0;
   text-align: center;
@@ -325,7 +325,6 @@ body {
   padding: 5px 10px;
   background: #FFF;
   border-bottom: 1px solid #e4e4e4;
-  width: 700px;
 }
 
 #channel-info h1 {
@@ -396,7 +395,6 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  width: 700px;
 }
 
 #channel-chat {
@@ -404,9 +402,8 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
-  right: 200px;
+  right: 300px;
   overflow: hidden;
-  width: 700px;
 }
 
 #channel-messages {
@@ -599,7 +596,7 @@ body {
   right: 0;
   top: 60px;
   bottom: 0;
-  width: 500px;
+  width: 300px;
   border-left: 1px solid #e4e4e4;
   background-color: #FFF;
   color: #333;
