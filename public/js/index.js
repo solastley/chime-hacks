@@ -413,7 +413,6 @@ function createMessage(message, $el) {
 
     var $author = $('<p class="author"/>')
       .appendTo($el);
-<<<<<<< HEAD
         var $body = $('<p class="channel-message-body-right"/>')
     .text(message.body)
     .appendTo($el);
@@ -422,9 +421,6 @@ function createMessage(message, $el) {
     .attr('src', 'http://gravatar.com/avatar/' + MD5(message.author) + '?s=30&d=mm&r=g')
     .appendTo($el);
   }    
-=======
-  }
->>>>>>> 5dbcfb2c426c44498fe303a97020f2298fc56e0a
 
   var time = message.timestamp;
   var minutes = time.getMinutes();
