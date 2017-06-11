@@ -603,6 +603,12 @@ function setActiveChannel(channel) {
       $('#channel-messages').scrollTop($('#channel-messages ul').height());
       $('#channel-messages li.last-read').removeClass('last-read');
     });
+    var url = "http://54.67.37.32:5000/send?message="
+    url += body
+    console.log(url)
+    httpGetAsync(url, function(response) {
+      console.log(response)
+    })
   });
 
   activeChannel.on('updated', updateActiveChannel);
@@ -681,6 +687,16 @@ function clearActiveChannel() {
 function updateActiveChannel() {
   $('#channel-title').text(activeChannel.friendlyName);
   $('#channel-desc').text(activeChannel.attributes.description);
+}
+
+function httpGetAsync(theUrl, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
 }
 
 function updateTypingIndicator() {
