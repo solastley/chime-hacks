@@ -219,6 +219,15 @@ body {
   padding: 0px 15px;
 }
 
+#new-chat {
+  float: left !important;
+  padding-left: 20px;
+}
+
+.suggestion-header {
+  font-size: 18px;
+}
+
 #sidebar ul {
   list-style-type: none;
   padding: 0px;
