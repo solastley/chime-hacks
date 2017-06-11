@@ -672,10 +672,9 @@ body {
   top: 60px;
   bottom: 0;
   width: 300px;
-  border-left: 1px solid #e4e4e4;
-  background-color: #FFF;
+  /*border-left: 1px solid #e4e4e4;*/
+  background-color: #eeeeee;
   color: #333;
-  padding: 10px;
 }
 
 #channel-members h3 {
@@ -748,4 +747,29 @@ body {
      -o-filter: grayscale(100%) blur(2px);
     -ms-filter: grayscale(100%) blur(2px);
         filter: grayscale(100%) blur(2px);
+}
+
+#profile-name {
+  text-align: center;
+}
+
+#profile-languages {
+  margin: 15px;
+  text-align: center;
+}
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#story-heading {
+  text-align: center;
+  background-color: white;
+  padding: 10px 0;
+  margin: 0 auto;
+  font-weight: bolder;
 }

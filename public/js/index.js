@@ -719,8 +719,8 @@ function setActiveChannel(channel) {
   }).then(function(members) {
     // updateMembers();
     if (activeChannel) {
-        $("#profile-name").html(activeChannel.state.friendlyName);
-        $("#profile-languages").html("Speaks: " + activeChannel.state.attributes.description);
+        $("#profile-name").html(activeChannel.state.friendlyName + ", 19");
+        $("#profile-languages").html("Speaks: Arabic, English");
     }
 
     // channel.on('memberJoined', updateMembers);
