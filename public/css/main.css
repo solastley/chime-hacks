@@ -130,13 +130,17 @@ body {
 }
 
 #profile {
-  width: 500px;
+  width: 2000px;
   padding: 10px;
   height: 60px;
   line-height: 40px;
-  background-color: #333;
+  background-color: #ec407a;
   position: fixed;
-  border-bottom: 2px solid #666;
+  z-index: 1000;
+}
+
+#profile label {
+  font-size: 20px;
 }
 
 .avatar {
@@ -179,11 +183,18 @@ body {
 #profile > #presence.denied { background: red; }
 
 #channels {
-  margin-top: 80px;
+  margin-top: 70px;
 }
 
 #sidebar h3 {
   margin-left: 20px;
+}
+
+#suggested-connections-header {
+  display: none;
+  color: #484848;
+  font-size: 16px;
+  padding: 0px 15px;
 }
 
 #sidebar ul {
@@ -194,7 +205,7 @@ body {
 #sidebar li {
   margin: 5px 0;
   cursor: pointer;
-  padding: 5px;
+  padding: 15px 5px;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -207,6 +218,7 @@ body {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  position: relative;
 }
 
 .message-image {
@@ -264,6 +276,35 @@ body {
   background: rgba(0, 0, 0, 0.1);
 }
 
+#sidebar-header {
+  width: 100%;
+}
+
+.sidebar-tab-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.sidebar-tab {
+  width: 45%;
+  padding: 10px 0px;
+  cursor: pointer;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-text {
+  font-size: 16px;
+  color: #484848;
+}
+
+.sidebar-tab.active .tab-text {
+  font-weight: bold;
+}
+
 #sidebar-footer {
   position: fixed;
   bottom: 0;
@@ -287,6 +328,14 @@ body {
   position: absolute;
   right: 10px;
   top: 10px;
+}
+
+.timestamp {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  right: 15px;
+  top: 5px;
 }
 
 .sidebar-footer-wrapper .message-image {
@@ -646,6 +695,10 @@ body {
   outline: none;
 }
 
+#new-chat {
+  display: none;
+}
+
 #channel-join-panel {
   position: absolute;
   bottom: 0;
@@ -670,10 +723,9 @@ body {
   top: 60px;
   bottom: 0;
   width: 300px;
-  border-left: 1px solid #e4e4e4;
-  background-color: #FFF;
+  /*border-left: 1px solid #e4e4e4;*/
+  background-color: #eeeeee;
   color: #333;
-  padding: 10px;
 }
 
 #channel-members h3 {
@@ -746,4 +798,29 @@ body {
      -o-filter: grayscale(100%) blur(2px);
     -ms-filter: grayscale(100%) blur(2px);
         filter: grayscale(100%) blur(2px);
+}
+
+#profile-name {
+  text-align: center;
+}
+
+#profile-languages {
+  margin: 15px;
+  text-align: center;
+}
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#story-heading {
+  text-align: center;
+  background-color: white;
+  padding: 10px 0;
+  margin: 0 auto;
+  font-weight: bolder;
 }

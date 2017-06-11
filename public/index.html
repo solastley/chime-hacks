@@ -46,7 +46,6 @@
   <div id="overlay"></div>
   <div id="sidebar">
     <div id="profile">
-      <img></img>
       <label></label>
       <div id="presence"></div>
     </div>
@@ -55,7 +54,17 @@
         <ul></ul>
       </div>
       <div id="sidebar-header">
-        <button id="create-channel-button" class="red-button">Create Channel</button>
+        <div class="sidebar-tab-container">
+          <div class="sidebar-tab active" id="chat-tab">
+            <span class="tab-text">Chat</span>
+          </div>
+          <div class="sidebar-tab" id="add-tab">
+            <span class="tab-text">Add</span>
+          </div>
+        </div>
+      </div>
+      <div id="suggested-connections-header">
+        <span>Here are some refugees that speak the same language as you and need a mentor:</span>
       </div>
       <div id="my-channels">
         <ul></ul>
@@ -93,19 +102,33 @@
           <ul>
             <div id="channel-message-body"></div>
           </ul>
+          <div id="new-chat">
+            <img src="/images/waving-hand-sign.png" class="hand-image" />
+            <h3 class="suggestion-header">
+              Say hello!
+            </h3>
+          </div>
         </div>
         <div id="channel-message-send">
           <input type="textbox" id="message-body-input"></input>
+<<<<<<< HEAD
           <button id="send-message" class="red-button">SEND</div>
+=======
+          <button id="send-message" class="red-button" style="width: 100px;">Send</div>
+>>>>>>> 5dbcfb2c426c44498fe303a97020f2298fc56e0a
         </div>
         <div id="channel-join-panel">
           <button id="join-channel" class="red-button">Join this Channel</div>
         </div>
         <div id="channel-members">
-          <h3 id="profile-name"></h3>
+          <img src="/images/girl.jpg" class="profile-image" />
+          <h4 id="profile-name"></h4>
           <h4 id="profile-location"></h4>
           <h4 id="profile-languages"></h4>
-          <ul></ul>
+          <div id="story-heading">
+            <h4><b>Story</b></h4>
+          </div>
+          <img src="/images/Story.png" alt="story" class="story-content">
         </div>
       </div>
     </div>

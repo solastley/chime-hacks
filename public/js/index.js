@@ -214,11 +214,8 @@ function logIn(identity, displayName) {
         });
       })
 
-      $('#profile label').text(client.user.friendlyName || client.user.identity);
-      $('#profile img').attr('src', 'http://gravatar.com/avatar/' + MD5(identity) + '?s=40&d=mm&r=g');
-
       client.user.on('updated', function() {
-        $('#profile label').text(client.user.friendlyName || client.user.identity);
+        $('#profile label').text("LAILA.");
       });
 
       var connectionInfo = $('#profile #presence');
@@ -332,16 +329,24 @@ function addJoinedChannel(channel) {
   var $con = $('<div class="message-info" style="width: 200px; margin-left: 10px"></div>');
 
   var $title = $('<span class="joined"/>')
-    .text(channel.friendlyName)
-    .appendTo($con);
+    .text(channel.friendlyName);
 
   var $lastMessage = $('<span class="last-message"/>');
+  var $timestamp = $('<span class="timestamp"/>');
     channel.getMessages(1).then(function(messages) {
         if (messages.items.length > 0) {
             $lastMessage.text(messages.items[0].state.body);
-        } else {
-            $lastMessage.text('random');
+
+            var time = messages.items[0].timestamp;
+            var minutes = time.getMinutes();
+            var ampm = Math.floor(time.getHours()/12) ? 'PM' : 'AM';
+
+            if (minutes < 10) { minutes = '0' + minutes; }
+
+            $timestamp.text('' + (time.getHours()%13) + ':' + minutes + ' ' + ampm + '');
         }
+        $timestamp.appendTo($con);
+        $title.appendTo($con);
         $lastMessage.appendTo($con);
     });
 
@@ -382,9 +387,14 @@ function removePublicChannel(channel) {
 
 function updateMessages() {
   $('#channel-messages ul').empty();
-  activeChannel.getMessages(30).then(function(page) {
-    page.items.forEach(addMessage);
-  });
+  if (!$("#add-tab").hasClass("active")) {
+    $("#new-chat").hide();
+    activeChannel.getMessages(30).then(function(page) {
+      page.items.forEach(addMessage);
+    });
+  } else {
+    $("#new-chat").show();
+  }
 }
 
 function removeMessage(message) {
@@ -403,6 +413,7 @@ function createMessage(message, $el) {
 
     var $author = $('<p class="author"/>')
       .appendTo($el);
+<<<<<<< HEAD
         var $body = $('<p class="channel-message-body-right"/>')
     .text(message.body)
     .appendTo($el);
@@ -411,6 +422,9 @@ function createMessage(message, $el) {
     .attr('src', 'http://gravatar.com/avatar/' + MD5(message.author) + '?s=30&d=mm&r=g')
     .appendTo($el);
   }    
+=======
+  }
+>>>>>>> 5dbcfb2c426c44498fe303a97020f2298fc56e0a
 
   var time = message.timestamp;
   var minutes = time.getMinutes();
@@ -494,6 +508,58 @@ function addMessage(message) {
 //
 // }
 
+function addFakeChannel(index) {
+  const fakePeople = [
+    {
+      name: 'Paul Hayne',
+      languages: ['Arabic', 'English'],
+    },
+    {
+      name: 'Solomon Astley',
+      languages: ['English', 'Spanish'],
+    },
+    {
+      name: 'Mike Rowe',
+      languages: 'The language of the people',
+    },
+  ];
+
+  var $el = $('<li/>');
+
+  var $image = $('<img src="/images/girl.jpg" class="message-image"/>');
+  $image.appendTo($el);
+
+  var $con = $('<div class="message-info" style="width: 200px; margin-left: 10px"></div>');
+
+  var $title = $('<span class="joined"/>')
+    .text(fakePeople[index % fakePeople.length].name);
+
+  var $lastMessage = $('<span class="last-message"/>');
+  $lastMessage.text("Speaks: " + fakePeople[index % fakePeople.length].languages.join(", "));
+  $title.appendTo($con);
+  $lastMessage.appendTo($con);
+
+  $con.appendTo($el);
+
+  $('#my-channels ul').append($el);
+}
+
+$(".sidebar-tab").click(function() {
+  if (this.id == "add-tab") {
+    $("#add-tab").addClass("active");
+    $("#chat-tab").removeClass("active");
+    $("#suggested-connections-header").show();
+    updateChannels();
+    updateMessages();
+  } else {
+    $("#chat-tab").addClass("active");
+    $("#add-tab").removeClass("active");
+    $("#suggested-connections-header").hide();
+    updateChannels();
+    updateMessages();
+  }
+});
+
 function updateChannels() {
   client.getSubscribedChannels()
     .then(page => {
@@ -503,10 +569,14 @@ function updateChannels() {
         $('#known-channels ul').empty();
         $('#invited-channels ul').empty();
         $('#my-channels ul').empty()
-        subscribedChannels.forEach(function(channel) {
+        subscribedChannels.forEach(function(channel, index) {
           switch (channel.status) {
             case 'joined':
-              addJoinedChannel(channel);
+              if ($("#add-tab").hasClass("active")) {
+                addFakeChannel(index);
+              } else {
+                addJoinedChannel(channel);
+              }
               break;
             case 'invited':
               addInvitedChannel(channel);
@@ -625,8 +695,8 @@ function setActiveChannel(channel) {
   }).then(function(members) {
     // updateMembers();
     if (activeChannel) {
-        $("#profile-name").html(activeChannel.state.friendlyName);
-        $("#profile-languages").html("Speaks: " + activeChannel.state.attributes.description);
+        $("#profile-name").html(activeChannel.state.friendlyName + ", 19");
+        $("#profile-languages").html("Speaks: Arabic, English");
     }
 
     // channel.on('memberJoined', updateMembers);
