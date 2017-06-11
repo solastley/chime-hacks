@@ -324,12 +324,29 @@ function addJoinedChannel(channel) {
       setActiveChannel(channel);
     });
 
+  var $image = $('<img src="/images/girl.jpg" class="message-image"/>');
+  $image.appendTo($el);
+
+  var $con = $('<div class="message-info" style="width: 200px; margin-left: 10px"></div>');
+
   var $title = $('<span class="joined"/>')
     .text(channel.friendlyName)
-    .appendTo($el);
+    .appendTo($con);
+
+  var $lastMessage = $('<span class="last-message"/>');
+    channel.getMessages(1).then(function(messages) {
+        if (messages.items.length > 0) {
+            $lastMessage.text(messages.items[0].state.body);
+        } else {
+            $lastMessage.text('random');
+        }
+        $lastMessage.appendTo($con);
+    });
 
   var $count = $('<span class="messages-count"/>')
-    .appendTo($el);
+    .appendTo($con);
+
+  $con.appendTo($el);
 
   /*
   channel.getUnreadMessagesCount().then(count => {
@@ -340,11 +357,11 @@ function addJoinedChannel(channel) {
   });
   */
 
-  var $leave = $('<div class="remove-button glyphicon glyphicon-remove"/>')
-    .on('click', function(e) {
-      e.stopPropagation();
-      channel.leave();
-    }).appendTo($el);
+  // var $leave = $('<div class="remove-button glyphicon glyphicon-remove"/>')
+  //   .on('click', function(e) {
+  //     e.stopPropagation();
+  //     channel.leave();
+  //   }).appendTo($el);
 
   $('#my-channels ul').append($el);
 }
