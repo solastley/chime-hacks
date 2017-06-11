@@ -547,6 +547,9 @@ function addFakeChannel(user) {
 
 $(".sidebar-tab").click(function() {
   if (this.id == "add-tab") {
+    $('#known-channels ul').empty();
+    $('#invited-channels ul').empty();
+    $('#my-channels ul').empty()
     $("#add-tab").addClass("active");
     $("#chat-tab").removeClass("active");
     $("#suggested-connections-header").show();
@@ -556,28 +559,38 @@ $(".sidebar-tab").click(function() {
     updateChannels();
     updateMessages();
   } else {
+    $('#known-channels ul').empty();
+    $('#invited-channels ul').empty();
+    $('#my-channels ul').empty()
     $("#chat-tab").addClass("active");
     $("#add-tab").removeClass("active");
     $("#suggested-connections-header").hide();
     $("#message-checklist-container").show();
-    $('#message-body-input').attr("placeholder", 'Send a message to ' + activeChannel.friendlyName);
+    if (activeChannel != null) {
+      $('#message-body-input').attr("placeholder", 'Send a message to ' + activeChannel.friendlyName);
+    }
     updateChannels();
     updateMessages();
   }
 });
 
 function updateChannels() {
+  $('#known-channels ul').empty();
+  $('#invited-channels ul').empty();
+  $('#my-channels ul').empty()
   if ($("#add-tab").hasClass("active")) {
-    $('#known-channels ul').empty();
-    $('#invited-channels ul').empty();
-    $('#my-channels ul').empty()
+    console.log('active')
       var url = SERVER_URL + '/suggested_users'
       $.getJSON(url, function(response) {
+        $('#known-channels ul').empty();
+          $('#invited-channels ul').empty();
+          $('#my-channels ul').empty()
         for(var i = 0; i < response.length; i++) {
           addFakeChannel(response[i])
         }
       });
   } else {
+    console.log('not active')
     client.getSubscribedChannels()
       .then(page => {
           subscribedChannels = page.items.sort(function(a, b) {
