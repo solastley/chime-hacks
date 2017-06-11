@@ -482,42 +482,42 @@ function addMessage(message) {
   }
 }
 
-function addMember(member) {
-  member.getUser().then(user => {
-    var $el = $('<li/>')
-      .attr('data-identity', member.identity);
+// function addMember(member) {
+//   member.getUser().then(user => {
+//     var $el = $('<li/>')
+//       .attr('data-identity', member.identity);
+//
+//     var $img = $('<img/>')
+//       .attr('src', 'http://gravatar.com/avatar/' + MD5(member.identity.toLowerCase()) + '?s=20&d=mm&r=g')
+//       .appendTo($el);
+//
+//
+//     let hasReachability = (user.online !== null) && (typeof user.online !== 'undefined');
+//     var $span = $('<span/>')
+//       .text(user.friendlyName || user.identity)
+//       .addClass(hasReachability ? ( user.online ? 'member-online' : 'member-offline' ) : '')
+//       .appendTo($el);
+//
+//     var $remove = $('<div class="remove-button glyphicon glyphicon-remove"/>')
+//       .on('click', member.remove.bind(member))
+//       .appendTo($el);
+//
+//     updateMember(member, user);
+//
+//     $('#channel-members ul').append($el);
+//   });
+// }
 
-    var $img = $('<img/>')
-      .attr('src', 'http://gravatar.com/avatar/' + MD5(member.identity.toLowerCase()) + '?s=20&d=mm&r=g')
-      .appendTo($el);
-
-
-    let hasReachability = (user.online !== null) && (typeof user.online !== 'undefined');
-    var $span = $('<span/>')
-      .text(user.friendlyName || user.identity)
-      .addClass(hasReachability ? ( user.online ? 'member-online' : 'member-offline' ) : '')
-      .appendTo($el);
-
-    var $remove = $('<div class="remove-button glyphicon glyphicon-remove"/>')
-      .on('click', member.remove.bind(member))
-      .appendTo($el);
-
-    updateMember(member, user);
-
-    $('#channel-members ul').append($el);
-  });
-}
-
-function updateMembers() {
-  $('#channel-members ul').empty();
-
-  activeChannel.getMembers()
-    .then(members => members
-        .sort(function(a, b) { return a.identity > b.identity; })
-        .sort(function(a, b) { return a.getUser().then(user => user.online) < b.getUser().then(user => user.online); })
-        .forEach(addMember));
-
-}
+// function updateMembers() {
+//   $('#channel-members ul').empty();
+//
+//   activeChannel.getMembers()
+//     .then(members => members
+//         .sort(function(a, b) { return a.identity > b.identity; })
+//         .sort(function(a, b) { return a.getUser().then(user => user.online) < b.getUser().then(user => user.online); })
+//         .forEach(addMember));
+//
+// }
 
 function updateChannels() {
   client.getSubscribedChannels()
@@ -646,17 +646,21 @@ function setActiveChannel(channel) {
 
     return channel.getMembers();
   }).then(function(members) {
-    updateMembers();
+    // updateMembers();
+    if (activeChannel) {
+        $("#profile-name").html(activeChannel.state.friendlyName);
+        $("#profile-languages").html("Speaks: " + activeChannel.state.attributes.description);
+    }
 
-    channel.on('memberJoined', updateMembers);
-    channel.on('memberLeft', updateMembers);
+    // channel.on('memberJoined', updateMembers);
+    // channel.on('memberLeft', updateMembers);
     channel.on('memberUpdated', updateMember);
 
     members.forEach(member => {
       member.getUser().then(user => {
         user.on('updated', () => {
           updateMember.bind(null, member, user);
-          updateMembers();
+        //   updateMembers();
         });
       });
     });
@@ -691,11 +695,11 @@ function updateActiveChannel() {
 
 function httpGetAsync(theUrl, callback) {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
+    xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             callback(xmlHttp.responseText);
     }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
     xmlHttp.send(null);
 }
 
@@ -731,4 +735,3 @@ function updateWithIncorrectToken() {
     accessManager.updateToken(res.text);
   });
 }
-
