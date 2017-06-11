@@ -46,7 +46,6 @@
   <div id="overlay"></div>
   <div id="sidebar">
     <div id="profile">
-      <img></img>
       <label></label>
       <div id="presence"></div>
     </div>
@@ -55,7 +54,17 @@
         <ul></ul>
       </div>
       <div id="sidebar-header">
-        <button id="create-channel-button" class="red-button">Create Channel</button>
+        <div class="sidebar-tab-container">
+          <div class="sidebar-tab active" id="chat-tab">
+            <span class="tab-text">Chat</span>
+          </div>
+          <div class="sidebar-tab" id="add-tab">
+            <span class="tab-text">Add</span>
+          </div>
+        </div>
+      </div>
+      <div id="suggested-connections-header">
+        <span>Here are some refugees that speak the same language as you and need a mentor:</span>
       </div>
       <div id="my-channels">
         <ul></ul>
@@ -93,11 +102,17 @@
           <ul>
             <div id="channel-message-body"></div>
           </ul>
+          <div id="new-chat">
+            <img src="/images/waving-hand-sign.png" class="hand-image" />
+            <h3 class="suggestion-header">
+              Say hello!
+            </h3>
+          </div>
         </div>
         <div id="channel-message-send">
           <div id="typing-indicator"><span></span></div>
           <input type="textbox" id="message-body-input"></input>
-          <button id="send-message" class="red-button">Send</div>
+          <button id="send-message" class="red-button" style="width: 100px;">Send</div>
         </div>
         <div id="channel-join-panel">
           <button id="join-channel" class="red-button">Join this Channel</div>

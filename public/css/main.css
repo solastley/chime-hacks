@@ -129,13 +129,17 @@ body {
 }
 
 #profile {
-  width: 500px;
+  width: 2000px;
   padding: 10px;
   height: 60px;
   line-height: 40px;
-  background-color: #333;
+  background-color: #ec407a;
   position: fixed;
-  border-bottom: 2px solid #666;
+  z-index: 1000;
+}
+
+#profile label {
+  font-size: 20px;
 }
 
 .avatar {
@@ -178,11 +182,18 @@ body {
 #profile > #presence.denied { background: red; }
 
 #channels {
-  margin-top: 80px;
+  margin-top: 70px;
 }
 
 #sidebar h3 {
   margin-left: 20px;
+}
+
+#suggested-connections-header {
+  display: none;
+  color: #484848;
+  font-size: 16px;
+  padding: 0px 15px;
 }
 
 #sidebar ul {
@@ -193,7 +204,7 @@ body {
 #sidebar li {
   margin: 5px 0;
   cursor: pointer;
-  padding: 5px;
+  padding: 15px 5px;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -206,6 +217,7 @@ body {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  position: relative;
 }
 
 .message-image {
@@ -263,6 +275,35 @@ body {
   background: rgba(0, 0, 0, 0.1);
 }
 
+#sidebar-header {
+  width: 100%;
+}
+
+.sidebar-tab-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.sidebar-tab {
+  width: 45%;
+  padding: 10px 0px;
+  cursor: pointer;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-text {
+  font-size: 16px;
+  color: #484848;
+}
+
+.sidebar-tab.active .tab-text {
+  font-weight: bold;
+}
+
 #sidebar-footer {
   position: fixed;
   bottom: 0;
@@ -286,6 +327,14 @@ body {
   position: absolute;
   right: 10px;
   top: 10px;
+}
+
+.timestamp {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  right: 15px;
+  top: 5px;
 }
 
 .sidebar-footer-wrapper .message-image {
@@ -369,12 +418,11 @@ body {
 }
 
 .red-button {
-  border-radius: 5px;
-  border: 1px solid black;
+  border-radius: 37px;
   color: white;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
-  background-color: #E30000;
+  background-color: #ec407a;
+  outline: none !important;
+  border: none !important;
 }
 
 .red-button:hover {
@@ -580,7 +628,7 @@ body {
 
 #channel-message-send input {
   display: inline-block;
-  width: calc(100% - 90px);
+  width: calc(100% - 140px);
   margin-left: 10px;
   height: 30px;
   right: 60px;
@@ -594,6 +642,10 @@ body {
   height: 30px;
   padding: 5px 10px;
   display: inline-block;
+}
+
+#new-chat {
+  display: none;
 }
 
 #channel-join-panel {
