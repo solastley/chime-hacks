@@ -568,8 +568,6 @@ function updateChannels() {
     $('#my-channels ul').empty()
       var url = SERVER_URL + '/suggested_users'
       $.getJSON(url, function(response) {
-        console.log("===============================");
-        console.log(response);
         for(var i = 0; i < response.length; i++) {
           addFakeChannel(response[i])
         }
@@ -657,6 +655,21 @@ function setActiveChannel(channel) {
   $('#send-message').off('click');
   $('#send-message').on('click', function() {
     var body = $('#message-body-input').val();
+    if (!$("#checklist-class").hasClass("checked")) {
+      if (body.indexOf("class") !== -1 || body.indexOf("learn") !== -1) {
+        $("#checklist-class").addClass("checked");
+      }
+    }
+    if (!$("#checklist-safe").hasClass("checked")) {
+      if (body.indexOf("safe") !== -1) {
+        $("#checklist-safe").addClass("checked");
+      }
+    }
+    if (!$("#checklist-crisis").hasClass("checked")) {
+      if (body.indexOf("crisis") !== -1 || body.indexOf("emergency") !== -1) {
+        $("#checklist-crisis").addClass("checked");
+      }
+    }
     channel.sendMessage(body).then(function() {
       $('#message-body-input').val('').focus();
       $('#channel-messages').scrollTop($('#channel-messages ul').height());

@@ -489,10 +489,10 @@ body {
 }
 
 #channel-messages {
-  margin-bottom: 70px;
+  margin-bottom: 150px;
   position: relative;
   width: 100%;
-  height: calc(100% - 75px);
+  height: calc(100% - 150px);
   overflow-y: auto;
   background: #F5F5F5;
 }
@@ -650,11 +650,60 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 75px;
   padding-top: 20px;
   padding-bottom: 20px;
-  border-top: 1px solid #AAA;
+  border-top: 1px solid #E4E4E4;
+  border-bottom: 1px solid #E4E4E4;
   background: white;
+}
+
+#message-checklist-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+}
+
+.checklist-item {
+  border-right: 1px solid #e4e4e4;
+  display: flex;
+  flex-flow: row nowrap;
+  padding-right: 50px;
+}
+
+.checklist-item.checked .radio-outer .radio-inner {
+  background: #ec407a;
+}
+
+.checklist-item:last-of-type {
+  border-right: none;
+}
+
+.radio-outer {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #AAA;
+  padding: 3px;
+  border-radius: 100%;
+}
+
+.radio-inner {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 100%;
+}
+
+.checklist-text {
+  margin-left: 20px;
+  font-size: 16px;
+  color: #484848
 }
 
 #typing-indicator {
@@ -685,7 +734,7 @@ body {
 
 #channel-message-send input:focus {
   outline: none;
-} 
+}
 
 ::-webkit-input-placeholder { /* Chrome */
   color: black;
@@ -746,7 +795,7 @@ body {
 #channel-members {
   position: absolute;
   right: 0;
-  top: 60px;
+  top: 0px;
   bottom: 0;
   width: 300px;
   /*border-left: 1px solid #e4e4e4;*/
