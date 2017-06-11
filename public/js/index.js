@@ -424,7 +424,7 @@ function createMessage(message, $el) {
         var $img = $('<img class="avatar-right"/>')
     .attr('src', 'http://gravatar.com/avatar/' + MD5(message.author) + '?s=30&d=mm&r=g')
     .appendTo($el);
-  }    
+  }
 
   var time = message.timestamp;
   var minutes = time.getMinutes();
@@ -556,49 +556,55 @@ $(".sidebar-tab").click(function() {
 
 function updateChannels() {
   if ($("#add-tab").hasClass("active")) {
+    $('#known-channels ul').empty();
+    $('#invited-channels ul').empty();
+    $('#my-channels ul').empty()
       var url = SERVER_URL + '/suggested_users'
       $.getJSON(url, function(response) {
+        console.log("===============================");
+        console.log(response);
         for(var i = 0; i < response.length; i++) {
           addFakeChannel(response[i])
         }
       });
-  } 
-  client.getSubscribedChannels()
-    .then(page => {
-        subscribedChannels = page.items.sort(function(a, b) {
-          return a.friendlyName > b.friendlyName;
-        });
-        $('#known-channels ul').empty();
-        $('#invited-channels ul').empty();
-        $('#my-channels ul').empty()
-        subscribedChannels.forEach(function(channel, index) {
-          switch (channel.status) {
-            case 'joined':
-              addJoinedChannel(channel)
-              break;
-            case 'invited':
-              addInvitedChannel(channel);
-              break;
-            default:
-              addKnownChannel(channel);
-              break;
-          }
-        });
-        client.getPublicChannelDescriptors()
-          .then(page => {
-              publicChannels = page.items.sort(function(a, b) {
-                return a.friendlyName > b.friendlyName;
-              });
-              $('#public-channels ul').empty();
-              publicChannels.forEach(function(channel) {
-                var result = subscribedChannels.find(item => item.sid === channel.sid);
-                console.log('Adding public channel ' + channel.sid + ' ' + channel.status + ', result=' + result);
-                if (result === undefined) {
-                  addPublicChannel(channel);
-                }
-              });
+  } else {
+    client.getSubscribedChannels()
+      .then(page => {
+          subscribedChannels = page.items.sort(function(a, b) {
+            return a.friendlyName > b.friendlyName;
           });
-    });
+          $('#known-channels ul').empty();
+          $('#invited-channels ul').empty();
+          $('#my-channels ul').empty()
+          subscribedChannels.forEach(function(channel, index) {
+            switch (channel.status) {
+              case 'joined':
+                addJoinedChannel(channel)
+                break;
+              case 'invited':
+                addInvitedChannel(channel);
+                break;
+              default:
+                addKnownChannel(channel);
+                break;
+            }
+          });
+          client.getPublicChannelDescriptors()
+            .then(page => {
+                publicChannels = page.items.sort(function(a, b) {
+                  return a.friendlyName > b.friendlyName;
+                });
+                $('#public-channels ul').empty();
+                publicChannels.forEach(function(channel) {
+                  var result = subscribedChannels.find(item => item.sid === channel.sid);
+                  console.log('Adding public channel ' + channel.sid + ' ' + channel.status + ', result=' + result);
+                  if (result === undefined) {
+                    addPublicChannel(channel);
+                  }
+                });
+            });
+      });
+  }
 }
 
 function updateMember(member, user) {
@@ -705,7 +711,7 @@ function setActiveChannel(channel) {
       member.getUser().then(user => {
         user.on('updated', () => {
           updateMember.bind(null, member, user);
-        //   updateMembers();
+          // updateMembers();
         });
       });
     });
