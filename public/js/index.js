@@ -542,6 +542,8 @@ function addFakeChannel(user) {
     .text(user.name);
 
   localStorage.setItem(user.name, user.number)
+  localStorage.setItem(user.name + '-languages', user.languages)
+  localStorage.setItem(user.name + '-background', user.bio)
 
   var $lastMessage = $('<span class="last-message"/>');
   $lastMessage.text("Speaks: " + user.languages.join(", "));
@@ -757,8 +759,8 @@ function setActiveChannel(channel) {
     // updateMembers();
     if (activeChannel) {
         $("#profile-name").html(activeChannel.state.friendlyName + ", 19");
-        $("#profile-languages").html("Speaks: Arabic, English");
-        $("#profile-summary").html("Background: this is the background of my life - i'm from the worst part of the country")
+        $("#profile-languages").html("Speaks: " + localStorage.getItem(activeChannel.friendlyName + '-languages'));
+        $("#profile-summary").html("Background: " + localStorage.getItem(activeChannel.friendlyName + '-background'))
     }
     if (!$("#add-tab").hasClass("active")) {
 

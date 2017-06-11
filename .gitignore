@@ -1,2 +1,8 @@
 *.swp
 node_modules
+
+
+curl -XDELETE https://chat.twilio.com/v2/Services/IS09923d82193b4fd5be8b0b03ae0c0de9/Channels/CHf85ec8caea974580b114097dfc003aa3 \
+    -d "FriendlyName=Amena Abadi” \
+    -u 'AC5d947b33287b737db033031298210360:ee6cbcfafd0777797f9284a7c28951aa'
+
