@@ -9,11 +9,26 @@ var typingMembers = new Set();
 var activeChannelPage;
 
 var SERVER_URL = "http://54.67.37.32:5000"
+var friendlyNameToSwitch = "Amena Abadi"
 
 var userContext = { identity: null, endpoint: null };
 let AUTHOR = "ownz.andy@gmail.com";
 
 $(document).ready(function() {
+
+  $('.message-button').on('click', function() {
+    client.getSubscribedChannels()
+      .then(page => {
+          subscribedChannels = page.items.sort(function(a, b) {
+            return a.friendlyName > b.friendlyName;
+          });
+          for(var i = 0; i < subscribedChannels.length; i++) {
+            if(subscribedChannels[i].friendlyName == friendlyNameToSwitch) {
+              setActiveChannel(subscribedChannels[i])
+            }
+          }
+      });
+  })
 
   $('#login-name').focus();
 
@@ -579,7 +594,6 @@ function updateChannels() {
   $('#invited-channels ul').empty();
   $('#my-channels ul').empty()
   if ($("#add-tab").hasClass("active")) {
-    console.log('active')
       var url = SERVER_URL + '/suggested_users'
       $.getJSON(url, function(response) {
         $('#known-channels ul').empty();
@@ -590,7 +604,6 @@ function updateChannels() {
         }
       });
   } else {
-    console.log('not active')
     client.getSubscribedChannels()
       .then(page => {
           subscribedChannels = page.items.sort(function(a, b) {
@@ -745,7 +758,11 @@ function setActiveChannel(channel) {
     if (activeChannel) {
         $("#profile-name").html(activeChannel.state.friendlyName + ", 19");
         $("#profile-languages").html("Speaks: Arabic, English");
+        $("#profile-summary").html("Background: this is the background of my life - i'm from the worst part of the country")
     }
+    if (!$("#add-tab").hasClass("active")) {
+
+    } 
 
     // channel.on('memberJoined', updateMembers);
     // channel.on('memberLeft', updateMembers);
