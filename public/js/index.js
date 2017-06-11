@@ -9,6 +9,7 @@ var typingMembers = new Set();
 var activeChannelPage;
 
 var userContext = { identity: null, endpoint: null };
+let AUTHOR = "mckim0928@gmail.com";
 
 $(document).ready(function() {
   $('#login-name').focus();
@@ -394,13 +395,14 @@ function createMessage(message, $el) {
       $el.addClass('editing');
     }).appendTo($el);
 
-  var $img = $('<img/>')
+  if(message.state.author === AUTHOR) {
+    var $img = $('<img/>')
     .attr('src', 'http://gravatar.com/avatar/' + MD5(message.author) + '?s=30&d=mm&r=g')
     .appendTo($el);
 
-  var $author = $('<p class="author"/>')
-    .text(message.author)
-    .appendTo($el);
+    var $author = $('<p class="author"/>')
+      .appendTo($el);
+  }    
 
   var time = message.timestamp;
   var minutes = time.getMinutes();
@@ -418,7 +420,6 @@ function createMessage(message, $el) {
     ampm = Math.floor(time.getHours()/12) ? 'PM' : 'AM';
 
     if (minutes < 10) { minutes = '0' + minutes; }
-
     $('<span class="timestamp"/>')
       .text('(Edited by ' + message.lastUpdatedBy + ' at ' +
         (time.getHours()%12) + ':' + minutes + ' ' + ampm + ')')
@@ -428,6 +429,14 @@ function createMessage(message, $el) {
   var $body = $('<p class="body"/>')
     .text(message.body)
     .appendTo($el);
+if(message.state.author !== AUTHOR) {
+    var $img = $('<img/>')
+    .attr('src', 'http://gravatar.com/avatar/' + MD5(message.author) + '?s=30&d=mm&r=g')
+    .appendTo($el);
+
+  var $author = $('<p class="author"/>')
+    .appendTo($el);
+}
 
   var $editBody = $('<textarea class="edit-body"/>')
     .text(message.body)
@@ -469,7 +478,6 @@ function addMessage(message) {
   var initHeight = $('#channel-messages ul').height();
   var $el = $('<li/>').attr('data-index', message.index);
   createMessage(message, $el);
-
   $('#channel-messages ul').append($el);
 
   if (initHeight - 50 < $messages.scrollTop() + $messages.height()) {

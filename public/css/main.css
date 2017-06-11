@@ -129,7 +129,7 @@ body {
 }
 
 #profile {
-  width: 250px;
+  width: 500px;
   padding: 10px;
   height: 60px;
   line-height: 40px;
@@ -150,7 +150,6 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  border: 2px solid white;
 }
 
 #profile > label {
@@ -263,6 +262,7 @@ body {
   bottom: 0;
   right: 0;
   background: #FAFAFF;
+  /*width: 500px;*/
 }
 
 #channel {
@@ -372,6 +372,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  width: 700px;
 }
 
 #channel-chat {
@@ -381,7 +382,7 @@ body {
   bottom: 0;
   right: 200px;
   overflow: hidden;
-  width: 500px;
+  width: 700px;
 }
 
 #channel-messages {
@@ -408,7 +409,6 @@ body {
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  border: 2px solid #333;
   margin-right: 5px;
 }
 
@@ -485,8 +485,10 @@ body {
 
 #channel-messages p.body {
   margin: 0 0 0 35px;
-  padding: 0;
+  padding: 50px;
   width: calc(100% - 90px);
+  background: white;
+  border-radius: 10px;
 }
 
 #channel-messages textarea.edit-body {
@@ -611,7 +613,6 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 10px;
-  border: 1px solid black;
   margin-right: 5px;
 }
 
